@@ -1,0 +1,15 @@
+{
+  "hash": "4e7bb8241e38261609b752016a0d83f8",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Hands-On-Exercise-00: Working with tidyverse\"\nauthor: \"Bryan Chang Tze Kin\"\ndate-modified: \"last-modified\"\nexecute:\n  echo: true\n  freeze: true\n  eval: true\n  warning: false\n---\n\n\n\nGetting started\n\nLoading tidyverse onto r environment by using the code chunk below.\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\npacman::p_load(tidyverse)\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n\nThe downloaded binary packages are in\n\t/var/folders/wv/lb5xz_ns1kq9cz1cgz2ltd040000gn/T//Rtmpt7Uaz6/downloaded_packages\n```\n\n\n:::\n:::",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
