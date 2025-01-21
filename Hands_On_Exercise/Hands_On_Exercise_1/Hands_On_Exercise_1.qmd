@@ -2,6 +2,7 @@
 title: "Hands_On_Exercise_1"
 format: html
 ---
+
 Loading tidyverse onto environment
 
 ```{r}
@@ -13,6 +14,7 @@ Importing data
 ```{r}
 exam_data <- read_csv("data/Exam_data.csv")
 ```
+
 Let's call the ggplot() function
 
 ```{r}
@@ -20,18 +22,22 @@ ggplot(data=exam_data)
 ```
 
 Adding some aesthetics to it using the aes() function
+
 ```{r}
 ggplot(data=exam_data, 
        aes(x= MATHS))
 ```
 
 Geometric objects using geom_bar
+
 ```{r}
 ggplot(data=exam_data, 
        aes(x=RACE)) +
   geom_bar()
 ```
+
 Geometric Objects using geom_dotplot
+
 ```{r}
 ggplot(data=exam_data, 
        aes(x = MATHS)) +
@@ -50,6 +56,7 @@ ggplot(data=exam_data,
 ```
 
 Geometric objects using geom_histogram
+
 ```{r}
 ggplot(data=exam_data, 
        aes(x = MATHS)) +
@@ -163,6 +170,7 @@ ggplot(data=exam_data,
 ```
 
 Plotting a best fit curve
+
 ```{r}
 ggplot(data=exam_data, 
        aes(x= MATHS, y=ENGLISH)) +
@@ -238,6 +246,7 @@ ggplot(data=exam_data,
   coord_flip() +
   theme_gray()
 ```
+
 ```{r}
 ggplot(data=exam_data, 
        aes(x=RACE)) +
@@ -245,6 +254,7 @@ ggplot(data=exam_data,
   coord_flip() +
   theme_classic()
 ```
+
 ```{r}
 ggplot(data=exam_data, 
        aes(x=RACE)) +
@@ -252,7 +262,3 @@ ggplot(data=exam_data,
   coord_flip() +
   theme_minimal()
 ```
-
-
-
-
