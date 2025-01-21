@@ -1,9 +1,3 @@
 ---
-title: "About"
+title: "Work in Progress"
 ---
-
-About this site
-
-```{r}
-1 + 1
-```
