@@ -3,18 +3,20 @@ title: "Hands_On_Exercise_2"
 format: html
 ---
 
-Installing the required libraries 
+Installing the required libraries
 
 ```{r}
 pacman::p_load(ggrepel, patchwork, 
                ggthemes, hrbrthemes,
                tidyverse) 
 ```
+
 Importing the data
 
 ```{r}
 exam_data <- read_csv("data/Exam_data.csv")
 ```
+
 ggrepel
 
 ```{r}
@@ -70,7 +72,7 @@ ggplot(data=exam_data,
   theme_economist()
 ```
 
-hrbthems package 
+hrbthems package
 
 ```{r}
 ggplot(data=exam_data, 
@@ -96,10 +98,7 @@ ggplot(data=exam_data,
               grid = "Y")
 ```
 
-Note that:
-axis_title_size - for font size
-base_size - axis label
-grid - used to remove x-axis grids
+Note that: axis_title_size - for font size base_size - axis label grid - used to remove x-axis grids
 
 Creating composite plot by combining multiple graphs
 
