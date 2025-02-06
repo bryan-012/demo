@@ -290,6 +290,11 @@ model
 check_collinearity(model)
 ```
 
+```{r}
+check_n <- check_collinearity(model)
+plot(check_n)
+```
+
 ## Model Diagnostic: checking normality assumption
 
 ```{R}
