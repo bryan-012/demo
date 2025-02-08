@@ -1,0 +1,72 @@
+---
+title: "In_Class_Exercise_4"
+format: html
+---
+## Installing and Loading R packages
+```{r}
+pacman::p_load(haven, SmartEDA, tidyverse, tidymodels, ggdist, ggridges, ggthemes,
+               colorspace)
+```
+
+```{r}
+exam_data <- read_csv("data/Exam_data.csv")
+```
+
+```{r}
+ggplot(data = exam_data,
+       aes(x= ENGLISH,
+           y=CLASS))+
+  geom_boxplot()
+```
+
+## Importing SAS data into R environment
+```{r}
+churn_telecom <- read_sas("data/churn_telecom.sas7bdat") %>%
+  mutate(CHURN_FLG =factor(
+    CHURN_FLG,
+    levels = c("1","0"),
+    labels = c("Churn","Non-Churn")))
+```
+  
+## Visualising the target variable
+```{R}
+ggplot(data = churn_telecom,
+       aes(x = CHURN_FLG))+
+  geom_bar()
+```
+
+```{R}
+ggplot(exam_data,
+       aes(x=ENGLISH,
+           y=CLASS))+
+  geom_density_ridges(
+    scale = 3,
+    rel_min_height = 0.01,
+    bandwidth = 3.4,
+    fill = lighten("#7097BB",.3),
+    color = "white"
+  ) + 
+  scale_x_continuous(name = "English grades",
+                     expand = c(0,0)
+  ) +
+  scale_y_discrete(name = NULL, expand = expansion(add=c(0.2,2.6))) + 
+theme_ridges()
+```
+
+```{R}
+ggplot(exam_data,
+       aes(x=RACE,
+           y=ENGLISH))+
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width=0,
+               point_colour = NA)+
+  geom_boxplot(width = .20,
+               outlier.shape=NA)+
+  stat_dots(side = "left",
+            justification = 1.2,
+            binwidth=.5,
+            dotsize=2)
+```
+
+```{r}

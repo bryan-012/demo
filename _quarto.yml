@@ -23,6 +23,8 @@ website:
       - text: "In-Class Exercise"
         menu:
         - text: "In-Class Exercise 0"
+        - text: "In-Class Exercise 1"
+          href: In_Class_Exercise/In_Class_Exercise_4/In_Class_Exercise_4.html
           
       - text: "Take-Home Exercise"
         menu:
