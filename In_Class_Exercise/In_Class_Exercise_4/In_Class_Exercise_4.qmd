@@ -1,6 +1,8 @@
 ---
 title: "In_Class_Exercise_4"
 format: html
+date: "February 8 2025"
+date-modified: "last-modified"
 ---
 ## Installing and Loading R packages
 ```{r}
