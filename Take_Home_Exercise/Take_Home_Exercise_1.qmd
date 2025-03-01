@@ -1,0 +1,376 @@
+---
+title: "Take_Home_Exercise_1: Creating data visualisation beyond default"
+format: html
+date: "February 12 2025"
+date-modified: "last-modified"
+execute:
+  freeze: true
+  echo: true
+  eval: true
+  warning: false
+---
+
+# 1 Overview
+
+## Setting the scene
+
+An international media company that publishes weekly content on digital platforms is planning to release articles on a theme regarding Heart Attack in Japan.
+
+## The task
+
+Assuming the role of the graphical editor of the media company, the task is prepare data visualisation for the article using appropriate **tidyverse** family of packages and the statistical graphics must be prepared using **ggplot2** and its extensions.
+
+## Introduction
+
+This article analyzes the Heart Attack in Japan: Youth vs Adult dataset to identify key risk factors and trends in heart attack occurrences. The goal is to compare heart attack rates between youth and adults and explore the influence of variables like age, gender, and lifestyle factors.
+
+# 2 Getting started
+
+## Importing packages
+
+tidyverse: acts as the core data science package for data manipulation, cleaning, visualization
+
+ggthemes: customizing themes for ggplot2
+
+ggridges: to plot ridgeline plots showing distribution trends
+
+ggdist: to plot distributions and uncertainty visualisations
+
+colorspace: advanced color selection for better differentiation & accessibility
+
+```{R}
+
+pacman::p_load(
+  tidyverse,
+  ggthemes,    
+  ggridges,  
+  ggdist, 
+  colorspace,
+  patchwork)
+```
+
+## Importing data
+
+The dataset is loaded using read_csv from the readr package within tidyverse
+
+```{r}
+heart_data <- read_csv("data/japan_heart_attack_dataset.csv")
+```
+
+# 3 Data Preparation
+
+Before doing EDA, we check for missing values, column types and data inconsistencies.
+
+## Checking for missing values
+
+We use the **colSums()** to check for missing values in the dataset.
+
+```{R}
+colSums(is.na(heart_data))
+```
+
+There are no missing values in this dataset so we can proceed to the next step.
+
+## Removing unnecessary columns
+
+There are 15 extra columns (Extra_Column_1 to Extra_Column_15) which does not contribute to our analysis. We remove them using the following code:
+
+```{R}
+heart_data <- heart_data %>%
+  select(-starts_with("Extra_Column"))
+```
+
+## Mutating the dataset
+
+We categorise the Age into groups to ease the comparisons when plotting in plots like bar charts, boxplots etc.
+
+Youth: \<30
+
+Adult: 30-59
+
+Senior: 60+
+
+```{R}
+heart_data <- heart_data %>%
+  mutate(
+    age_group = case_when(
+      Age < 30 ~ "Youth (<30)",
+      Age >= 30 & Age < 60 ~ "Adult (30-59)",
+      Age >= 60 ~ "Senior (60+)"
+    )
+  )
+```
+
+Since Body Mass Index (BMI) is a key cardiovascular risk factor and there are benchmarks which are universally categorised ([BMI](https://www.sgh.com.sg/patient-care/conditions-treatments/obesity)), we can categorise our BMI values as well.
+
+Underweight: \<18.5
+
+Normal: 18.5 - 24.9
+
+Overweight: 25-29.9
+
+Obese \>=30
+
+```{R}
+heart_data <- heart_data %>%
+  mutate(
+    BMI_Category = case_when(
+      BMI < 18.5 ~ "Underweight",
+      BMI >= 18.5 & BMI <= 24.9 ~ "Normal",
+      BMI >= 25 & BMI <= 29.9 ~ "Overweight",
+      BMI >= 30 ~ "Obese"
+    )
+  )
+```
+
+## Previewing the dataset
+
+We use head() function to preview the first few rows of the dataset.\
+
+```{r}
+head(heart_data, 200)
+```
+
+After some cleaning, the dataset is now ready for analysis. Lets take a final glimpse on the dataset.
+
+```{r}
+glimpse(heart_data)
+```
+
+# 4 Exploratory Data Analysis (EDA)
+
+## EDA 1: Age Distribution of Heart Attack Patients
+
+**Type of Chart: Half-Eye Density Plot**
+
+-   This half-eye plot displays the distribution of heart attack patients by age group while overlaying individual data points and density estimates.
+
+-   The half-eye plot is built using stat_halfeye() within the ggdist package.
+
+-   The full age distribution is displayed without histograms or bins
+
+-   Combining boxplox and density visualization for enhanced insights
+
+-   Helps detect outliers and variations in the data
+
+-   Individual cases are highlighted with jittered black points
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+ggplot(heart_data, aes(x = Age, y = 0, fill = age_group)) +
+  ggdist::stat_halfeye(adjust = 1.5, justification = -0.2, point_color = "black", alpha = 0.7) +
+  scale_fill_manual(values = colorspace::qualitative_hcl(3, palette = "Set 2")) +
+  labs(title = "Age Distribution of Heart Attack Patients",
+       x = "Age (Years)", y = NULL, fill = "Age Group") +
+  theme_minimal() +
+  theme(legend.position = "right",
+        plot.title = element_text(size = 14, face = "bold"),
+        axis.text = element_text(size = 12),
+        axis.title = element_text(size = 13))
+```
+
+**Why this matters?**
+
+-   Help identify the most vulnerable age groups, allowing targeted prevention strategies
+
+::: callout-note
+**Observations / Insights**
+
+-   Adults (30-59) have the highest heart attack frequency, making them the most at risk age group
+
+-   Seniors (60+) show a steady occurrence, confirming age as a major risk factor
+
+-   Youth (\<30) have significantly fewer cases, but they still exist, reinforcing the role of other factors like genetics or stress which we will analyse later
+:::
+
+## EDA 2: BMI, Heart Rate, Blood Pressure Distributions
+
+**Type of Chart: Ridgeline Density Plots**
+
+-   Ridgeline plots visualizes the distribution of BMI, heart rate, and blood pressure across different age groups, allowing easy comparison
+
+-   geom_density_ridges() was used to create the ridgeline plot
+
+-   Ridgeline plots replaces the need of histograms by minimising it into a single visualisation for easier comparison
+
+-   Ridgeline plots shows full range, skewness and density peaks unlike boxplots which only displays the quartiles
+
+-   Ridgeline plots allows quick assessment of differences between Youth, Adults and Seniors
+
+::: panel-tabset
+## BMI
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+ggplot(heart_data, aes(x = BMI, y = age_group, fill = age_group)) +
+ggridges::geom_density_ridges(alpha = 0.7, scale = 1.2) +
+scale_fill_manual(values = colorspace::qualitative_hcl(3, palette = "Pastel 1")) +
+labs(title = "BMI Distribution Across Age Groups",
+x = "BMI", y = "Age Group", fill = "Age Group") +
+theme_minimal() +
+theme(legend.position = "right",
+plot.title = element_text(size = 14, face = "bold"),
+axis.text = element_text(size = 12),
+axis.title = element_text(size = 13))
+```
+
+## Heart Rate
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+ggplot(heart_data, aes(x = Heart_Rate, y = age_group, fill = age_group)) +
+ggridges::geom_density_ridges(alpha = 0.7, scale = 1.2) +
+scale_fill_manual(values = colorspace::qualitative_hcl(3, palette = "Pastel 1")) +
+labs(title = "Heart Rate Distribution Across Age Groups",
+x = "Heart Rate (bpm)", y = "Age Group", fill = "Age Group") +
+theme_minimal() +
+theme(legend.position = "right",
+plot.title = element_text(size = 14, face = "bold"),
+axis.text = element_text(size = 12),
+axis.title = element_text(size = 13))
+```
+
+## Blood Pressure
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+ggplot(heart_data, aes(x = Systolic_BP, y = age_group, fill = age_group)) +
+ggridges::geom_density_ridges(alpha = 0.7, scale = 1.2) +
+scale_fill_manual(values = colorspace::qualitative_hcl(3, palette = "Pastel 1")) +
+labs(title = "Systolic Blood Pressure Distribution by Age Group",
+x = "Systolic Blood Pressure (mmHg)", y = "Age Group", fill = "Age Group") +
+theme_minimal() +
+theme(legend.position = "right",
+plot.title = element_text(size = 14, face = "bold"),
+axis.text = element_text(size = 12),
+axis.title = element_text(size = 13))
+```
+:::
+
+**Why this matters?**
+
+-   Help identify key risk factors for heart attacks and highlight important lifestyle interventions
+
+::: callout-note
+**Observations / Insights**
+
+-   Adults (30-59) have the widest distribution in all three variables, showing greater variability in heart attack risk factors.
+
+-   Seniors (60+) have more centralized distributions, suggesting better regulation via medication or lifestyle
+
+-   Youth (\<30) have more stable, lower values across BMI, heart rate, and BP
+:::
+
+## EDA 3: Relationship between Cholesterol and Blood pressure
+
+**Type of Chart: Scatter Plot with Density Contours**
+
+-   This scatter plot with overlaid density contours visualizes the relationship between cholesterol levels and systolic blood pressure
+
+-   geom_point() was used to make clearer individual cases
+
+-   geom_density_2d() was used to highlight cluster regions by providing a heatmap-like view
+
+-   This visualisation help avoid overplotting when many points overlap
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+ggplot(heart_data, aes(x = Cholesterol_Level, y = Systolic_BP, color = age_group)) +
+  geom_point(alpha = 0.6, size = 1.2) +  # Increased alpha & size for better visibility
+  geom_density_2d(color = "darkblue", size = 1) +  # Darker contours for readability
+  scale_color_manual(values = c("Adult (30-59)" = "#E41A1C",  # Strong Red
+                                "Senior (60+)" = "#377EB8",  # Deep Blue
+                                "Youth (<30)" = "#4DAF4A")) + # Vibrant Green
+  labs(title = "Relationship Between Cholesterol and Systolic BP",
+       x = "Cholesterol Level (mg/dL)",
+       y = "Systolic Blood Pressure (mmHg)",
+       color = "Age Group") +
+  theme_minimal() +
+  theme(legend.position = "right",
+        plot.title = element_text(size = 16, face = "bold"),
+        axis.text = element_text(size = 12),
+        axis.title = element_text(size = 13))
+```
+
+**Why this matters?**
+
+-   High cholesterol and elevated systolic blood pressure are major contributors to heart attacks and cardiovascular disease
+
+::: callout-note
+**Observations / Insights**
+
+-   There is a positive correlation between cholesterol and blood pressure
+
+-   Seniors (60+) tend to cluster around higher cholesterol and blood pressure levels
+
+-   Adults (30-59) exhibits the widest spread, meaning there are a mix of healthy and high-risk individuals
+
+-   Youth (\<30) show more scattered, lower values, indicating they are not high risk at the moment
+:::
+
+## EDA 4: Impact of Lifestyle Factors (Alcohol) on Heart Attack Risk
+
+**Type of Chart: Grouped Bar Chart**
+
+-   The grouped bar chart displays the distribution of alcohol consumption levels (Low, Moderate, High) across three age groups (Youth, Adults, Seniors)
+
+-   The grouped bar chart is built using geom_bar() and allows quick identification of which group has the highest alcohol intake
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+ggplot(heart_data, aes(x = age_group, fill = Alcohol_Consumption)) +
+  geom_bar(position = "dodge") +
+  scale_fill_manual(values = c("Low" = "lightblue", "Moderate" = "orange", "High" = "red")) +
+  labs(title = "Alcohol Consumption Across Age Groups",
+       x = "Age Group", y = "Count", fill = "Alcohol Consumption") +
+  theme_minimal() +
+  theme(legend.position = "right",
+        plot.title = element_text(size = 14, face = "bold"),
+        axis.text = element_text(size = 12),
+        axis.title = element_text(size = 13))
+
+
+
+```
+
+**Why this matters?**
+
+-   Excessive alcohol consumption may be a considered a factor therefore identifying the age group with excessive consumption is important
+
+::: callout-note
+**Observations / Insights**
+
+-   Adults (30-59) have the highest proportion of high alcohol consumption, which could be linked to work stress, social drinking culture or lifestyle choices.
+
+-   Seniors (60+) tend to consume alcohol at a moderate level, possibly due to health consciousness or medical restrictions.
+
+-   Youth (\<30) have the lowest alcohol consumption overall, likely due to legal restrictions or lower social drinking frequency.
+:::
+
+# 5 Summary / Conclusion
+
+This task leveraged data visualization techniques to explore heart attack risk factors across different age groups in Japan. By employing advanced ggplot2-based visualizations, the analysis provided clear, data-driven insights into the relationships between key health indicators as well as the distributions.
+
+::: callout-note
+-   Adults(30-59) require targeted prevention efforts, as they exhibit the highest risk factors for heart attacks. Encouraging regular health screenings, weight management, and stress reduction strategies could mitigate risks
+
+-   Seniors (60+) should prioritize managing hypertension and cholesterol, as these factors strongly correlate with heart attack prevalence. Medical interventions, lifestyle adjustments, and controlled alcohol intake should be considered
+
+-   Youth(\<30) should be educated about early warning signs and lifestyle risk, particularly for high-stress individuals who may develop cardiovascular conditions early
+:::
+
+# 6 Key References
+
+-   [R for Data Science](https://r4ds.had.co.nz)
+
+-   [ggplot2](https://ggplot2.tidyverse.org//)
+
+-   [ggplot2-tutorial](http://r-statistics.co/ggplot2-Tutorial-With-R.html#google_vignette)
+
+-   [WHO-Cardiovascular health](https://www.who.int/health-topics/cardiovascular-diseases#tab=tab_1)
