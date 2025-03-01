@@ -10,7 +10,11 @@ execute:
   warning: false
 ---
 
+
+
 # Getting Started
+
+
 
 ```{r}
 pacman::p_load(tidyverse, tsibble, feasts, fable, seasonal)
@@ -30,9 +34,13 @@ ts_data$`Month-Year` <- dmy(
 ts_data
 ```
 
+
+
 ```{ts_data_ts <- ts(ts_data)}
 head(ts_data_ts)
 ```
+
+
 
 ```{R}
 ts_tsibble <- ts_data %>%
@@ -90,3 +98,4 @@ ts_longer %>%
              y = Arrivals))+
   geom_line(size = 0.5)
 ```
+
