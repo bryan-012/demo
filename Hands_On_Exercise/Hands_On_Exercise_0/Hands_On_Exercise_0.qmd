@@ -1,0 +1,69 @@
+---
+title: "Hands-On-Exercise-00: Working with tidyverse"
+author: "Bryan Chang Tze Kin"
+date-modified: "last-modified"
+execute:
+  echo: true
+  freeze: true
+  eval: true
+  warning: false
+---
+
+Getting started
+
+Loading tidyverse onto r environment by using the code chunk below.
+
+```{r}
+pacman::p_load(tidyverse)
+```
+
+Importing data
+
+```{r}
+realis_csv <- read_csv("data/REALIS2019.csv")
+```
+
+```{r}
+#| eval: FALSE
+popdata_fat <- read.csv("data/PopData2019_fat.csv")
+```
+
+Pivoting data
+
+```{r}
+#| eval: FALSE
+popdata_long <- popdata_fat %>%
+  pivot_longer(c(3:21),
+               names_to = "Age Group",
+               values_to = "Population")
+```
+
+```{r}
+#| eval: FALSE
+write_rds(popdata_long, "rds/popdata_long.rds")
+```
+
+```{r}
+#| echo: FALSE
+popdata_long <- read_rds("rds/popdata_long.rds")
+```
+
+working with dplyr
+
+```{r}
+realis2019_selected <- realis_csv %>%
+  select('Project Name',
+         'Transacted Price ($)',
+         'Type of Sale',
+         'Unit Price ($ psm)',
+         'Property Type')
+realis2019_selected
+```
+
+```{r}
+realis2019_filtered <- realis2019_selected %>%
+  filter('Property Type' == "Condominium" |
+  'Property Type' == "Apartment") %>%
+  filter('Type of Sale' == "New Sale") %>%
+  filter('Unit Price ($ psm)' <= 13000)
+```
