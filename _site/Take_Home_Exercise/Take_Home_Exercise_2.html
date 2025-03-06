@@ -186,6 +186,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../Take_Home_Exercise/Take_Home_Exercise_1.html">
  <span class="dropdown-text">Take-Home Exercise 1</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../Take_Home_Exercise/Take_Home_Exercise_2.html">
+ <span class="dropdown-text">Take-Home Exercise 2</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -223,6 +227,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#what-is-good-about-this-bar-chart" id="toc-what-is-good-about-this-bar-chart" class="nav-link" data-scroll-target="#what-is-good-about-this-bar-chart">What is good about this bar chart?</a></li>
   <li><a href="#why-it-is-bad" id="toc-why-it-is-bad" class="nav-link" data-scroll-target="#why-it-is-bad">Why it is bad?</a></li>
+  <li><a href="#the-sketch" id="toc-the-sketch" class="nav-link" data-scroll-target="#the-sketch">The Sketch</a></li>
+  <li><a href="#the-plot" id="toc-the-plot" class="nav-link" data-scroll-target="#the-plot">The Plot</a></li>
   <li><a href="#why-is-it-better" id="toc-why-is-it-better" class="nav-link" data-scroll-target="#why-is-it-better">Why is it better?</a></li>
   <li><a href="#what-can-be-improved" id="toc-what-can-be-improved" class="nav-link" data-scroll-target="#what-can-be-improved">What can be improved?</a></li>
   </ul></li>
@@ -230,6 +236,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#why-is-it-good" id="toc-why-is-it-good" class="nav-link" data-scroll-target="#why-is-it-good">Why is it good?</a></li>
   <li><a href="#what-is-bad" id="toc-what-is-bad" class="nav-link" data-scroll-target="#what-is-bad">What is bad?</a></li>
+  <li><a href="#the-sketch-1" id="toc-the-sketch-1" class="nav-link" data-scroll-target="#the-sketch-1">The Sketch</a></li>
+  <li><a href="#the-plot-1" id="toc-the-plot-1" class="nav-link" data-scroll-target="#the-plot-1">The Plot</a></li>
   <li><a href="#why-it-is-better" id="toc-why-it-is-better" class="nav-link" data-scroll-target="#why-it-is-better">Why it is better?</a></li>
   <li><a href="#what-can-be-improved-1" id="toc-what-can-be-improved-1" class="nav-link" data-scroll-target="#what-can-be-improved-1">What can be improved?</a></li>
   </ul></li>
@@ -237,6 +245,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#what-is-good" id="toc-what-is-good" class="nav-link" data-scroll-target="#what-is-good">What is good?</a></li>
   <li><a href="#why-is-it-bad" id="toc-why-is-it-bad" class="nav-link" data-scroll-target="#why-is-it-bad">Why is it bad?</a></li>
+  <li><a href="#the-sketch-2" id="toc-the-sketch-2" class="nav-link" data-scroll-target="#the-sketch-2">The Sketch</a></li>
+  <li><a href="#the-plot-2" id="toc-the-plot-2" class="nav-link" data-scroll-target="#the-plot-2">The Plot</a></li>
   <li><a href="#why-it-is-better-1" id="toc-why-it-is-better-1" class="nav-link" data-scroll-target="#why-it-is-better-1">Why it is better?</a></li>
   <li><a href="#what-can-be-improved-2" id="toc-what-can-be-improved-2" class="nav-link" data-scroll-target="#what-can-be-improved-2">What can be improved?</a></li>
   </ul></li>
@@ -254,6 +264,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#plot-1" id="toc-plot-1" class="nav-link" data-scroll-target="#plot-1">5.2.2 Plot</a></li>
   </ul></li>
   </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">6 Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -386,6 +397,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>It is difficult to compare the trends between the years and only works well for a single-year analysis</li>
 <li>The information are scattered everywhere, for example, if I want to compare the years between export I have to look vertically skipping the import charts in between and if I want to identify the year I have to look at the labeled text box on the right.</li>
 </ol>
+</section>
+<section id="the-sketch" class="level3">
+<h3 class="anchored" data-anchor-id="the-sketch">The Sketch</h3>
+<p><img src="images/clipboard-3413338496.png" class="img-fluid"></p>
+</section>
+<section id="the-plot" class="level3">
+<h3 class="anchored" data-anchor-id="the-plot">The Plot</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
@@ -507,7 +525,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>The makeover improved visualization shows all the important information as in the original visualization through a line chart.</p>
+<p>The makeover improved visualization shows all the important information as in the original visualization through a line chart using ggplot geom_line for the plot, theme_minimal() and geom_text_repel() for the customization and aesthetics.</p>
 </section>
 <section id="why-is-it-better" class="level3">
 <h3 class="anchored" data-anchor-id="why-is-it-better">Why is it better?</h3>
@@ -546,6 +564,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>If more countries are included, the chart would be very cluttered and again overlap</li>
 <li>There is a need to look around for information, For example if we want to compare the value of import and export between 2 countries we would have to look at the axes multiple times, making it rather confusing</li>
 </ol>
+</section>
+<section id="the-sketch-1" class="level3">
+<h3 class="anchored" data-anchor-id="the-sketch-1">The Sketch</h3>
+<p><img src="images/clipboard-31333413.png" class="img-fluid"></p>
+</section>
+<section id="the-plot-1" class="level3">
+<h3 class="anchored" data-anchor-id="the-plot-1">The Plot</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
@@ -641,7 +666,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>The makeover visualization uses a treemap to show the information.</p>
+<p>The makeover visualization uses a treemap to show the information using ggplot, geom_treemap() for the treemap plot and theme_minimal() for customization of aesthetics.</p>
 </section>
 <section id="why-it-is-better" class="level3">
 <h3 class="anchored" data-anchor-id="why-it-is-better">Why it is better?</h3>
@@ -680,6 +705,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>if more categories of years were added, the visualization would be too overwhelming.</li>
 <li>The visually appealing ship does not contribute any information except the design.</li>
 </ol>
+</section>
+<section id="the-sketch-2" class="level3">
+<h3 class="anchored" data-anchor-id="the-sketch-2">The Sketch</h3>
+<p><img src="images/clipboard-2236998231.png" class="img-fluid"></p>
+</section>
+<section id="the-plot-2" class="level3">
+<h3 class="anchored" data-anchor-id="the-plot-2">The Plot</h3>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
@@ -738,7 +770,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>The makeover visualization uses a bar chart.</p>
+<p>The makeover visualization uses a bar chart using ggplot, geom_bar() for the plot and theme_minimal() for customization of aesthetics.</p>
 </section>
 <section id="why-it-is-better-1" class="level3">
 <h3 class="anchored" data-anchor-id="why-it-is-better-1">Why it is better?</h3>
@@ -763,7 +795,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>For this task, we would like to do some time-series analysis.</p>
 <section id="cycle-plot-of-singapore-domestic-export" class="level2">
 <h2 class="anchored" data-anchor-id="cycle-plot-of-singapore-domestic-export">5.1 Cycle Plot of Singapore Domestic Export</h2>
-<p>We would like to create a cycle plot of Singapore’s Domestic Exports from 2020-2024.</p>
+<p>We would like to create a cycle plot of Singapore’s Domestic Exports from 2020-2024. We utilized ggplot, geom_line() for the plot and theme_minimal() for the customization of aesthetics.</p>
 <section id="data-preparation" class="level3">
 <h3 class="anchored" data-anchor-id="data-preparation">5.1.1 Data Preparation</h3>
 <p>We will convert the data into long format as it will be suitable for time-series analysis and then extract the Year &amp; Month.</p>
@@ -826,7 +858,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="slope-graph" class="level2">
 <h2 class="anchored" data-anchor-id="slope-graph">5.2 Slope Graph</h2>
-<p>This Slope Graph shows Singapore’s Top 5 Export Countries from 2020-2024</p>
+<p>This Slope Graph shows Singapore’s Top 5 Export Countries from 2020-2024. We utilized useslopgraph() for the plotting of the slope graph.</p>
 <section id="data-preparation-1" class="level3">
 <h3 class="anchored" data-anchor-id="data-preparation-1">5.2.1 Data Preparation</h3>
 <p>We start off by filtering out the aggregate categories as in the dataset there are values for regional totals. We select the relevant columns for 2020 and 2024. Then, we calculate and find the top 5 countries based on 2024 exports for further analysis. Finally, we will convert the data to long format so that each country has 2 rows one for 2020 and one for 2024.</p>
@@ -891,10 +923,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-
-
 </section>
 </section>
+</section>
+<section id="summary" class="level1">
+<h1>6 Summary</h1>
+<p>In summary, there are many ways for you to present your data based on the purpose of the visualization. It is important to make sure that the visualizations are not the most complex but the easiest for the viewers to read and understand, there is no point of making a very beautiful, cluttered and complex visualization filled with information if the audience can’t translate or understand anything displayed.</p>
+<p>With sufficient effort in selecting, cleaning, categorizing and visualizing, the basic plots can get the work done sometimes, like a simple line chart.</p>
+<p>It is important to spend time planning and sketching how you want the outcome of the visualization to be and assess it from a viewer point of view before we start coding the visualization.</p>
+
+
 </section>
 
 </main> <!-- /main -->

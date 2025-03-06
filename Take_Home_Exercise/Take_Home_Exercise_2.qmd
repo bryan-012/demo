@@ -78,6 +78,12 @@ This visualization shows the Total Merchandise Trade at Current Prices, 2020-202
 2.  It is difficult to compare the trends between the years and only works well for a single-year analysis
 3.  The information are scattered everywhere, for example, if I want to compare the years between export I have to look vertically skipping the import charts in between and if I want to identify the year I have to look at the labeled text box on the right.
 
+### The Sketch
+
+![](images/clipboard-3413338496.png)
+
+### The Plot
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
@@ -192,7 +198,7 @@ p + geom_text_repel(
   )
 ```
 
-The makeover improved visualization shows all the important information as in the original visualization through a line chart.
+The makeover improved visualization shows all the important information as in the original visualization through a line chart using ggplot geom_line for the plot, theme_minimal() and geom_text_repel() for the customization and aesthetics.
 
 ### Why is it better?
 
@@ -224,6 +230,12 @@ This visualization shows the Merchandise Trade Performance with Major Trading Pa
 2.  It is difficult to compare between countries as the use of bubble size to show trade volume can be misleading and the precise comparison of areas would be required
 3.  If more countries are included, the chart would be very cluttered and again overlap
 4.  There is a need to look around for information, For example if we want to compare the value of import and export between 2 countries we would have to look at the axes multiple times, making it rather confusing
+
+### The Sketch
+
+![](images/clipboard-31333413.png)
+
+### The Plot
 
 ```{r}
 #| code-fold: true
@@ -313,7 +325,7 @@ ggplot(df_trade, aes(
   )
 ```
 
-The makeover visualization uses a treemap to show the information.
+The makeover visualization uses a treemap to show the information using ggplot, geom_treemap() for the treemap plot and theme_minimal() for customization of aesthetics.
 
 ### Why it is better?
 
@@ -345,6 +357,12 @@ This visualization shows the Non-Oil Domestic Exports.
 2.  The design is visually appealing but it is cluttered and the ship structure is too long as the entire ship does not fit into a single window and would require scrolling.
 3.  if more categories of years were added, the visualization would be too overwhelming.
 4.  The visually appealing ship does not contribute any information except the design.
+
+### The Sketch
+
+![](images/clipboard-2236998231.png)
+
+### The Plot
 
 ```{r}
 #| code-fold: true
@@ -397,7 +415,7 @@ ggplot(nodx_final, aes(x = Export_Value, y = reorder(Category, Export_Value), fi
         plot.margin = margin(10, 50, 10, 10))
 ```
 
-The makeover visualization uses a bar chart.
+The makeover visualization uses a bar chart using ggplot, geom_bar() for the plot and theme_minimal() for customization of aesthetics.
 
 ### Why it is better?
 
@@ -417,7 +435,7 @@ For this task, we would like to do some time-series analysis.
 
 ## 5.1 Cycle Plot of Singapore Domestic Export
 
-We would like to create a cycle plot of Singapore's Domestic Exports from 2020-2024.
+We would like to create a cycle plot of Singapore's Domestic Exports from 2020-2024. We utilized ggplot, geom_line() for the plot and theme_minimal() for the customization of aesthetics.
 
 ### 5.1.1 Data Preparation
 
@@ -478,7 +496,7 @@ ggplot(cycle_data, aes(x = Year, y = Total_Exports, group = Month)) +
 
 ## 5.2 Slope Graph
 
-This Slope Graph shows Singapore's Top 5 Export Countries from 2020-2024
+This Slope Graph shows Singapore's Top 5 Export Countries from 2020-2024. We utilized useslopgraph() for the plotting of the slope graph.
 
 ### 5.2.1 Data Preparation
 
@@ -542,3 +560,11 @@ newggslopegraph(
     plot.subtitle = element_text(hjust = 0.5)
   )
 ```
+
+# 6 Summary
+
+In summary, there are many ways for you to present your data based on the purpose of the visualization. It is important to make sure that the visualizations are not the most complex but the easiest for the viewers to read and understand, there is no point of making a very beautiful, cluttered and complex visualization filled with information if the audience can't translate or understand anything displayed.
+
+With sufficient effort in selecting, cleaning, categorizing and visualizing, the basic plots can get the work done sometimes, like a simple line chart.
+
+It is important to spend time planning and sketching how you want the outcome of the visualization to be and assess it from a viewer point of view before we start coding the visualization.
