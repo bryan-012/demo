@@ -180,6 +180,24 @@ Despite its usefulness of drawing a choropleth map quickly and easily, the disad
 
 In the following sub-section, we will share with you tmap functions that used to plot these elements.
 
+```{R}
+tm_shape(mpsz_pop2020)+
+  tm_polygons(fill = "DEPENDENCY", 
+              fill.scale = tm_scale_intervals(
+                style = "quantile",
+                n = 5,
+                values = "brewer.blues"),
+              fill.legend = tm_legend(
+                title = "Dependency ratio")) +
+  tm_title("Distribution of Dependency Ratio by planning subzone") +
+  tm_layout(frame = TRUE) +
+  tm_borders(fill_alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_grid(alpha =0.2) +
+  tm_credits("Source: Planning Sub-zone boundary from Urban Redevelopment Authorithy (URA)\n and Population data from Department of Statistics DOS", 
+             position = c("left", "bottom"))
+```
+
 ### 21.4.2.1 Drawing a base map
 
 The basic building block of **tmap** is *tm_shape()* followed by one or more layer elemments such as *tm_fill()* and *tm_polygons()*.
