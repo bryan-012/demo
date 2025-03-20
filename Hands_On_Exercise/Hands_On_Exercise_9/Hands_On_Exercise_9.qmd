@@ -53,7 +53,7 @@ Next, we will examine the structure of the data frame using *glimpse()*of **dp
 glimpse(GAStech_edges)
 ```
 
-::: {.callout-caution}
+::: callout-caution
 ## Warning
 
 The output report of GAStech_edges above reveals that the *SentDate* is treated as “Character” data type instead of *date* data type. This is an error! Before we continue, it is important for us to change the data type of *SentDate* field back to “Date”” data type.
